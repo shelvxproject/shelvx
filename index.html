@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Shelvx – Smart Store Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#a78bfa">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Shelvx">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+  <script src="app.js" defer></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
+  </script>
+</head>
+<body>
+
+<div class="phone">
+  <div class="phone-notch"></div>
+  <div class="phone-screen" id="phone-screen">
+    <div id="app"><div style="text-align:center;padding-top:160px;color:#a78bfa;font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:700;">Loading Shelvx…</div></div>
+    <!-- AI Panel -->
+    <div class="ai-overlay" id="ai-overlay" onclick="closeAI()"></div>
+    <div class="ai-panel" id="ai-panel">
+      <div class="ai-header">
+        <div class="ai-avatar">✦</div>
+        <div class="ai-header-text">
+          <div class="ai-header-title">Shelvx AI</div>
+          <div class="ai-header-sub">Your smart shopping assistant</div>
+        </div>
+        <button class="close-btn" onclick="closeAI()" style="position:relative;top:auto;right:auto;">✕</button>
+      </div>
+      <div class="ai-messages" id="ai-messages"></div>
+      <div class="ai-chips" id="ai-chips">
+        <span class="ai-chip" onclick="sendChip(this.textContent)">💡 Recommend something healthy</span>
+        <span class="ai-chip" onclick="sendChip(this.textContent)">🛒 Best value items</span>
+        <span class="ai-chip" onclick="sendChip(this.textContent)">🥗 Good for a diet</span>
+        <span class="ai-chip" onclick="sendChip(this.textContent)">🍳 Breakfast ideas</span>
+      </div>
+      <div class="ai-input-row">
+        <input type="text" id="ai-input" placeholder="Ask me anything…" onkeydown="if(event.key==='Enter')sendAI()"/>
+        <button class="ai-send-btn" onclick="sendAI()">➤</button>
+      </div>
+    </div>
+  </div>
+  <div class="phone-bar"></div>
+</div>
+<div id="modal-root"></div>
+
+</body>
+</html>
